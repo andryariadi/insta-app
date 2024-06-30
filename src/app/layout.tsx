@@ -6,8 +6,8 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lama Dev Social Media App",
-  description: "Social media app built with Next.js",
+  title: "Gramify",
+  description: "Gramify social media app",
 };
 
 export default function RootLayout({
