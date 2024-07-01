@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Page() {
   return (
     <>
-      <div className="bg-sky-600 min-h-screen flex flex-col-reverse lg:flex-row items-center justify-center">
+      <div className="bg-sky-600 min-h-screen flex flex-col-reverse md:flex-row items-center justify-center">
         <div className="bg-violet-500 w-[57%] lg:w-1/2 flex justify-center">
           <SignUp />
         </div>
