@@ -11,3 +11,8 @@
   --font-code: "Source Code Pro", monospace;
   --font-grotesk: "Space Grotesk", sans-serif;
 }
+
+body {
+  font-family: var(--font-sora);
+  color: #0e0c15;
+}
