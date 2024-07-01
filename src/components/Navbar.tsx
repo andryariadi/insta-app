@@ -13,36 +13,37 @@ import Search from "./Search";
 const Navbar = () => {
   return (
     <>
-      <div className="bg-amber-500 h-24 flex items-center justify-between">
+      <div className="bg-n-8 h-24 flex items-center justify-between">
         {/* Left */}
-        <div className="bg-rose-500 w-[20%] h-full md:hidden lg:flex items-center">
+        <div className="bg-rose-500 w-[20%] h-full flex md:hidden lg:flex items-center">
           <Link href="/">
             <Image src="/logo.svg" alt="Gramify" width={100} height={100} />
           </Link>
         </div>
 
         {/* Center */}
-        <div className="bg-sky-500 w-[50%] h-full hidden md:flex gap-6 text-sm">
-          <Link href="/" className="flex items-center gap-2">
-            <GoHome size={22} />
-            <span>Home</span>
-          </Link>
-          <Link href="/" className="flex items-center gap-2">
-            <HiOutlineUserGroup size={22} />
-            <span>Friends</span>
-          </Link>
-          <Link href="/" className="flex items-center gap-2">
-            <TbCircleDashedPlus size={22} />
-            <span>Stories</span>
-          </Link>
-        </div>
-
-        <div className="bg-teal-500">
-          <Search />
+        <div className="bg-sky-500 w-[60%] h-full hidden md:flex justify-between text-sm">
+          <div className="bg-teal-600 flex gap-10">
+            <Link href="/" className="flex items-center gap-1">
+              <GoHome size={22} />
+              <span>Home</span>
+            </Link>
+            <Link href="/" className="flex items-center gap-1">
+              <HiOutlineUserGroup size={22} />
+              <span>Friends</span>
+            </Link>
+            <Link href="/" className="flex items-center gap-1">
+              <TbCircleDashedPlus size={22} />
+              <span>Stories</span>
+            </Link>
+          </div>
+          <div className="bg-amber-500 hidden xl:flex items-center justify-center">
+            <Search />
+          </div>
         </div>
 
         {/* Right */}
-        <div className="bg-violet-500 w-[30%] h-full flex items-center justify-end">
+        <div className="bg-violet-500 w-[20%] h-full flex items-center justify-end gap-3">
           <ClerkLoading>
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white" />
           </ClerkLoading>
@@ -50,9 +51,11 @@ const Navbar = () => {
           <ClerkLoaded>
             <SignedIn>
               <div className="bg-rose-500 flex items-center gap-6">
-                <HiOutlineUserGroup size={25} />
-                <IoChatbubbleEllipsesOutline size={25} />
-                <IoIosNotificationsOutline size={25} />
+                <div className="hidden md:flex items-center gap-6">
+                  <HiOutlineUserGroup size={25} />
+                  <IoChatbubbleEllipsesOutline size={25} />
+                  <IoIosNotificationsOutline size={25} />
+                </div>
                 <UserButton />
               </div>
             </SignedIn>
@@ -64,6 +67,7 @@ const Navbar = () => {
               </Link>
             </SignedOut>
           </ClerkLoaded>
+
           <MobileMenu />
         </div>
       </div>
