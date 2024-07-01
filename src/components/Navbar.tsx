@@ -5,6 +5,9 @@ import { GoHome } from "react-icons/go";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { TbCircleDashedPlus } from "react-icons/tb";
 import { PiUserCircleThin } from "react-icons/pi";
+import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Navbar = () => {
   return (
@@ -35,10 +38,28 @@ const Navbar = () => {
 
         {/* Right */}
         <div className="bg-violet-500 w-[30%] flex items-center justify-end">
-          <Link href="/" className="flex items-center gap-2 text-sm">
-            <PiUserCircleThin size={22} />
-            <span>Login/Register</span>
-          </Link>
+          <ClerkLoading>
+            <div
+              className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+              role="status"
+            />
+          </ClerkLoading>
+
+          <ClerkLoaded>
+            <SignedIn>
+              <HiOutlineUserGroup size={22} />
+              <IoChatbubbleEllipsesOutline size={22} />
+              <IoIosNotificationsOutline size={22} />
+              <UserButton />
+            </SignedIn>
+
+            <SignedOut>
+              <Link href="/sign-in" className="flex items-center gap-2 text-sm">
+                <PiUserCircleThin size={22} />
+                <span>Login/Register</span>
+              </Link>
+            </SignedOut>
+          </ClerkLoaded>
           <MobileMenu />
         </div>
       </div>
