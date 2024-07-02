@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
+import Comments from "./Comments";
 
 const Post = () => {
   return (
@@ -23,7 +24,7 @@ const Post = () => {
         </div>
 
         {/* Interaction */}
-        <div className="bg-rose-500 flex items-center justify-between mt-3 text-sm">
+        <div className="bg-rose-500 flex items-center justify-between my-4 text-sm">
           <div className="flex items-center gap-8">
             <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
               <Image src="/like.png" alt="Like" width={16} height={16} className="cursor-pointer" />
@@ -53,6 +54,9 @@ const Post = () => {
             </div>
           </div>
         </div>
+
+        {/* Comments */}
+        <Comments />
       </div>
     </>
   );
