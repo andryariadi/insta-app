@@ -26,7 +26,7 @@ const Comments = () => {
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium illo dolorem error recusandae, blanditiis, est qui mollitia omnis sunt, nihil dolor. Veniam optio, eos beatae perspiciatis accusamus iste. Provident,
               accusamus.
             </p>
-            <div className="flex items-center gap-8 text-sm text-gray-500 mt-2">
+            <div className="flex items-center gap-5 text-xs text-gray-500 mt-2">
               <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
                 <Image src="/like.png" alt="Like" width={16} height={16} className="cursor-pointer" />
                 <span className="text-gray-300">|</span>
