@@ -10,7 +10,7 @@ const Homepage = () => {
       <div className="bg-amber-500 flex gap-5 pt-6">
         {/* Left */}
         <div className="bg-sky-500 hidden xl:block w-[20%]">
-          <LeftMenu />
+          <LeftMenu type="home" />
         </div>
 
         {/* Center */}

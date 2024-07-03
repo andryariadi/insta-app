@@ -15,7 +15,7 @@ const UserMediaCard = ({ userId }: { userId: string }) => {
       {/* Media */}
       <div className="bg-amber-500 flex items-center justify-center flex-wrap gap-4">
         {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-          <div key={item} className="relative w-1/5 h-24">
+          <div key={item} className="relative w-1/5 h-20">
             <Image src="https://images.pexels.com/photos/6940563/pexels-photo-6940563.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Media" fill className="object-cover rounded-md" />
           </div>
         ))}
