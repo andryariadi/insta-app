@@ -8,6 +8,7 @@ const LeftMenu = ({ type }: { type: "home" | "profile" }) => {
     <>
       <div className="flex flex-col gap-6">
         {type === "home" && <ProfileCard />}
+
         <div className="bg-white p-2 rounded-lg shadow-sm text-sm text-gray-500 flex flex-col gap-2">
           <Link href="/" className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-200 transition-all duration-300">
             <Image src="/posts.png" alt="Post" width={20} height={20} />
