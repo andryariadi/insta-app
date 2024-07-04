@@ -13,10 +13,10 @@ const AddPost = () => {
         {/* Post */}
         <div className="bg-violet-500 flex-1">
           {/* Text Input */}
-          <div className="bg-teal-500 flex gap-4">
-            <textarea placeholder="What's on your mind?" className="flex-1 bg-slate-100 p-2 rounded-lg focus:outline-none"></textarea>
+          <form action="" className="bg-teal-500 flex gap-4">
+            <textarea name="desc" placeholder="What's on your mind?" className="flex-1 bg-slate-100 p-2 rounded-lg focus:outline-none"></textarea>
             <BsEmojiWinkFill size={24} className="text-amber-500 self-end cursor-pointer" />
-          </div>
+          </form>
 
           {/* Post Options */}
           <div className="bg-sky-500 flex flex-wrap items-center gap-4 mt-4 text-gray-400">
