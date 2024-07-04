@@ -3,7 +3,7 @@ import Image from "next/image";
 const ProfileCard = () => {
   return (
     <>
-      <div className="bg-white sticky top-28 h-max z-10 p-2 rounded-lg shadow-sm text-sm flex flex-col gap-2">
+      <div className="bg-n-1/60 backdrop-blur sticky top-28 h-max z-10 p-2 rounded-lg shadow-sm text-sm flex flex-col gap-2">
         <div className="relative h-20">
           <Image src="https://cdn.pixabay.com/photo/2022/06/01/11/49/metaverse-7235541_640.jpg" alt="Metaverse" fill className="rounded-md object-cover" />
           <Image
