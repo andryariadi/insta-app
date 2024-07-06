@@ -2,6 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import prisma from "@/libs/client";
+import { CreateUserInput } from "@/libs/types";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -55,53 +56,21 @@ export async function POST(req: Request) {
 
   if (eventType === "user.created") {
     try {
+      const userData: CreateUserInput = {
+        clerkId: evt.data.id,
+        username: JSON.parse(body).data.username,
+        avatar: JSON.parse(body).data.image_url || "/noAvatar.png",
+        cover: "/noCover.png",
+      };
+
       await prisma.user.create({
-        data: {
-          clerkId: evt.data.id,
-          username: JSON.parse(body).data.username,
-          avatar: JSON.parse(body).data.image_url || "/noAvatar.png",
-          cover: "/noCover.png",
-        },
+        data: userData,
       });
 
       return new Response("User has been created!", { status: 200 });
     } catch (error) {
       console.log(error);
       return new Response("Failed to create user!", { status: 500 });
-    }
-  }
-
-  if (eventType === "user.updated") {
-    try {
-      await prisma.user.update({
-        where: {
-          clerkId: evt.data.id,
-        },
-        data: {
-          username: JSON.parse(body).data.username,
-          avatar: JSON.parse(body).data.image_url || "/noAvatar.png",
-        },
-      });
-
-      return new Response("User has been updated!", { status: 200 });
-    } catch (error) {
-      console.log(error);
-      return new Response("Failed to update user!", { status: 500 });
-    }
-  }
-
-  if (eventType === "user.deleted") {
-    try {
-      await prisma.user.delete({
-        where: {
-          clerkId: evt.data.id,
-        },
-      });
-
-      return new Response("User has been deleted!", { status: 200 });
-    } catch (error) {
-      console.log(error);
-      return new Response("Failed to delete user!", { status: 500 });
     }
   }
 
