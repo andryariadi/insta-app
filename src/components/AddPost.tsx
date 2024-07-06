@@ -3,10 +3,6 @@ import Image from "next/image";
 import { BsEmojiWinkFill } from "react-icons/bs";
 
 const AddPost = () => {
-  const { userId: clerkId } = auth();
-
-  console.log(clerkId, "<---addPost");
-
   return (
     <div className="bg-white p-4 rounded-lg shadow-md flex justify-between gap-4 text-sm">
       {/* Avatar */}
