@@ -4,27 +4,9 @@ import Image from "next/image";
 import { BsEmojiWinkFill } from "react-icons/bs";
 
 const AddPost = () => {
-  const { userId: clerkId } = auth(); // Menggunakan clerkId
+  const { userId: clerkId } = auth();
 
   console.log(clerkId, "<---addPost");
-
-  const addPost = async (formData: FormData) => {
-    "use server"; // Menjalankan fungsi ini di server
-    if (!clerkId) return;
-
-    const desc = formData.get("desc") as string;
-    try {
-      const res = await prisma.post.create({
-        data: {
-          clerkId: clerkId, // Menggunakan clerkId dari Clerk
-          desc: desc,
-        },
-      });
-      console.log(res, "<---addPost");
-    } catch (error) {
-      console.error("Error creating post:", error);
-    }
-  };
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md flex justify-between gap-4 text-sm">
@@ -35,7 +17,7 @@ const AddPost = () => {
 
       {/* Post */}
       <div className="bg-violet-500 flex-1">
-        <form action={addPost} className="bg-teal-500 flex gap-4">
+        <form className="bg-teal-500 flex gap-4">
           <textarea name="desc" placeholder="What's on your mind?" className="flex-1 bg-slate-100 p-2 rounded-lg focus:outline-none"></textarea>
           <BsEmojiWinkFill size={24} className="text-amber-500 self-end cursor-pointer" />
           <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg">
