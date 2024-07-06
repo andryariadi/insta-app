@@ -16,7 +16,7 @@ const AddPost = () => {
           <textarea name="desc" placeholder="What's on your mind?" className="flex-1 bg-slate-100 p-2 rounded-lg focus:outline-none"></textarea>
           <BsEmojiWinkFill size={24} className="text-amber-500 self-end cursor-pointer" />
           <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg">
-            Send
+            Sendd
           </button>
         </form>
 
