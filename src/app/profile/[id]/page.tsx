@@ -6,18 +6,18 @@ import Image from "next/image";
 const ProfilePage = () => {
   return (
     <>
-      <div className="bg-amber-500 flex gap-5 pt-6">
+      <div className="bg-ambr-500 flex gap-5 pt-6">
         {/* Left */}
-        <div className="bg-sky-500 hidden xl:block w-[20%]">
+        <div className="bg-sy-500 hidden xl:block w-[20%]">
           <LeftMenu type="profile" />
         </div>
 
         {/* Center */}
-        <div className="bg-violet-500 w-full lg:w-[70%] xl:w-[50%]">
-          <div className="bg-rose-500 flex flex-col gap-6">
-            <div className="bg-teal-600 flex flex-col items-center justify-center">
+        <div className="bg-violt-500 w-full lg:w-[70%] xl:w-[50%]">
+          <div className="bg-ros-500 flex flex-col gap-6">
+            <div className="bg-n-1/60 backdrop-blur rounded-md flex flex-col items-center justify-center">
               <div className="relative w-full h-64">
-                <Image src="https://cdn.pixabay.com/photo/2024/04/25/06/44/ai-generated-8719074_1280.png" alt="Profile" fill className="object-cover rounded-md" />
+                <Image src="https://cdn.pixabay.com/photo/2024/04/25/06/44/ai-generated-8719074_1280.png" alt="Profile" fill className="object-cover rounded-t-md" />
                 <Image
                   src="https://cdn.pixabay.com/photo/2024/04/19/08/58/ai-generated-8705789_640.jpg"
                   alt="Metaverse"
@@ -47,7 +47,7 @@ const ProfilePage = () => {
         </div>
 
         {/* Right */}
-        <div className="bg-teal-500 hidden lg:block w-[30%]">
+        <div className="bg-tal-500 hidden lg:block w-[30%]">
           <RightMenu userId="test" />
         </div>
       </div>

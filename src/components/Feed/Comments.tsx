@@ -6,7 +6,7 @@ const Comments = () => {
     <>
       <div className="flex flex-col gap-2">
         {/* Write */}
-        <div className="bg-rose-500 flex items-center gap-4">
+        <div className="bg-ros-500 flex items-center gap-4">
           <Image src="https://images.pexels.com/photos/8591701/pexels-photo-8591701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Comment" width={32} height={32} className="w-8 h-8 rounded-full" />
           <div className="flex flex-1 items-center justify-between bg-slate-100 px-6 py-2 rounded-xl">
             <input type="text" placeholder="Write a comment..." className="flex-1 bg-transparent rounded-sm border-none outline-none placeholder:text-sm" />
@@ -15,12 +15,12 @@ const Comments = () => {
         </div>
 
         {/* Comment */}
-        <div className="bg-rose-500 flex justify-between gap-4 mt-5">
+        <div className="bg-ros-500 flex justify-between gap-4 mt-5">
           {/* Avatar */}
           <Image src="https://images.pexels.com/photos/8591701/pexels-photo-8591701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Comment" width={40} height={40} className="w-10 h-10 rounded-full" />
 
           {/* Desc */}
-          <div className="bg-amber-500 flex flex-col gap-2">
+          <div className="bg-ambr-500 flex flex-col gap-2">
             <span className="font-medium">Andry Ariadi</span>
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium illo dolorem error recusandae, blanditiis, est qui mollitia omnis sunt, nihil dolor. Veniam optio, eos beatae perspiciatis accusamus iste. Provident,

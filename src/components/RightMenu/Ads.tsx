@@ -4,16 +4,16 @@ import { BsThreeDots } from "react-icons/bs";
 const Ads = ({ size }: { size: "sm" | "md" | "lg" }) => {
   return (
     <>
-      <div className="bg-white p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
+      <div className="bg-n-1/60 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
         {/* Top */}
-        <div className="bg-sky-600 flex items-center justify-between text-gray-500">
+        <div className="bg-sy-600 flex items-center justify-between text-gray-500">
           <span className="font-medium">Sponsored Ads</span>
           <BsThreeDots size={24} className="cursor-pointer" />
         </div>
 
         {/* Bottom */}
-        <div className={`bg-violet-500 flex flex-col ${size === "sm" ? "gap-2" : "gap-4"}`}>
-          <div className={`bg-amber-700 relative w-full ${size === "sm" ? "h-14" : size === "md" ? "h-20" : "h-28"}`}>
+        <div className={`bg-violt-500 flex flex-col ${size === "sm" ? "gap-2" : "gap-4"}`}>
+          <div className={`relative w-full ${size === "sm" ? "h-14" : size === "md" ? "h-20" : "h-28"}`}>
             <Image src="https://images.pexels.com/photos/8721342/pexels-photo-8721342.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Ads" fill className="rounded-lg object-cover" />
           </div>
           <div className="flex items-center gap-4">

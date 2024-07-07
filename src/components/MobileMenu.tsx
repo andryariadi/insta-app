@@ -15,12 +15,19 @@ const MobileMenu = () => {
       </div>
 
       {isOpen && (
-        <div className="bg-teal-700 absolute left-0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col items-center justify-center gap-8 font-medium text-xl text-n-8 z-10">
-          <Link href="/">Home</Link>
-          <Link href="/">Friends</Link>
-          <Link href="/">Groups</Link>
-          <Link href="/">Stories</Link>
-          <Link href="/">Login</Link>
+        <div className="bg-n-1/70 backdrop-blur absolute left-0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col items-center justify-center gap-8 font-medium text-xl text-n-8 z-10">
+          <Link href="/" className="hover:text-logo transition-all duration-300">
+            Home
+          </Link>
+          <Link href="/" className="hover:text-logo transition-all duration-300">
+            Friends
+          </Link>
+          <Link href="/" className="hover:text-logo transition-all duration-300">
+            Groups
+          </Link>
+          <Link href="/" className="hover:text-logo transition-all duration-300">
+            Stories
+          </Link>
         </div>
       )}
     </>

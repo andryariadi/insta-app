@@ -7,7 +7,7 @@ import UserMediaCard from "./UserMediaCard";
 const RightMenu = ({ userId }: { userId: string }) => {
   return (
     <>
-      <div className="bg-violet-600 flex flex-col gap-6">
+      <div className="bg-violt-600 flex flex-col gap-6">
         {userId ? (
           <>
             <UserInfoCard userId={userId} />
