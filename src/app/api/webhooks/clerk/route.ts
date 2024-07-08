@@ -1,6 +1,7 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import prisma from "@/libs/client";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -50,8 +51,60 @@ export async function POST(req: Request) {
   // For this guide, you simply log the payload to the console
   const { id } = evt.data;
   const eventType = evt.type;
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
+  // console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+  // console.log("Webhook body:", body);
 
-  return new Response("", { status: 200 });
+  if (eventType === "user.created") {
+    try {
+      await prisma.user.create({
+        data: {
+          clerkId: id as string,
+          username: JSON.parse(body).data.username,
+          avatar: JSON.parse(body).data.image_url || "/noAvatar.png",
+          cover: "/noCover.png",
+        },
+      });
+
+      return new Response("User has been created!", { status: 200 });
+    } catch (error) {
+      console.log(error);
+      return new Response("Failed to create the user!", { status: 500 });
+    }
+  }
+
+  if (eventType === "user.updated") {
+    try {
+      await prisma.user.update({
+        where: {
+          clerkId: id,
+        },
+        data: {
+          username: JSON.parse(body).data.username,
+          avatar: JSON.parse(body).data.image_url || "/noAvatar.png",
+        },
+      });
+
+      return new Response("User has been updated!", { status: 200 });
+    } catch (error) {
+      console.log(error);
+      return new Response("Failed to update the user!", { status: 500 });
+    }
+  }
+
+  if (eventType === "user.deleted") {
+    try {
+      await prisma.user.delete({
+        where: {
+          clerkId: id,
+        },
+      });
+
+      return new Response("User has been deleted!", { status: 200 });
+    } catch (error) {
+      console.log(error);
+      return new Response("Failed to delete the user!", { status: 500 });
+    }
+  }
+
+  return new Response("Webhook received!", { status: 200 });
 }
