@@ -1,10 +1,53 @@
+import prisma from "@/libs/client";
+import { auth } from "@clerk/nextjs/server";
 import { User } from "@prisma/client";
 import Link from "next/link";
 import { FaLink, FaRegCalendarAlt } from "react-icons/fa";
 import { IoSchoolSharp } from "react-icons/io5";
-import { MdBlock, MdLocationPin, MdWork } from "react-icons/md";
+import { MdLocationPin, MdWork } from "react-icons/md";
+import UserInfoCardInteraction from "./UserInfoCardInteraction";
 
-const UserInfoCard = ({ user }: { user: User }) => {
+const UserInfoCard = async ({ user }: { user: User }) => {
+  const createdAt = new Date(user.createdAt);
+
+  const formattedDate = createdAt.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  let isUserBlocked = false;
+  let isFollowing = false;
+  let isFollowingSent = false;
+
+  const { userId: clerkId } = auth();
+
+  if (clerkId) {
+    const blockRes = await prisma.block.findFirst({
+      where: {
+        blockerId: clerkId,
+        blockedId: user.clerkId,
+      },
+    });
+    blockRes ? (isUserBlocked = true) : (isUserBlocked = false);
+
+    const followRes = await prisma.follower.findFirst({
+      where: {
+        followerId: clerkId,
+        followingId: user.clerkId,
+      },
+    });
+    followRes ? (isFollowing = true) : (isFollowing = false);
+
+    const followReqRes = await prisma.followRequest.findFirst({
+      where: {
+        senderId: clerkId,
+        receiverId: user.clerkId,
+      },
+    });
+    followReqRes ? (isFollowingSent = true) : (isFollowingSent = false);
+  }
+
   return (
     <div className="bg-n-1/60 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
       {/* Title */}
@@ -17,46 +60,50 @@ const UserInfoCard = ({ user }: { user: User }) => {
 
       {/* Information */}
       <div className="bg-violt-500 flex flex-col gap-4 text-gray-500">
-        <div className="flex items-center gap-2">
-          <span className="text-lg text-n-7">Andry Ariadi</span>
-          <span className="text-sm">@andryariadi</span>
+        <div className="flex items-center justify-center flex-wrap gap-1">
+          <span className="text-base text-n-7">{user.name && user.surname ? `${user.name} ${user.surname}` : user.username}</span>
+          <span className="text-xs">@{user.username}</span>
         </div>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi consequatur ducimus dicta.</p>
+        {user.description && <p>{user.description}</p>}
         <div className="bg-ambr-500 flex flex-col gap-4 text-xs">
-          <div className="flex items-center gap-2 cursor-pointer">
-            <MdLocationPin size={18} />
-            <span>
-              Living in <strong>Malang City</strong>
-            </span>
-          </div>
-          <div className="flex items-center gap-2 cursor-pointer">
-            <IoSchoolSharp size={18} />
-            <span>
-              Went to <strong>Hacktiv8</strong>
-            </span>
-          </div>
-          <div className="flex items-center gap-2 cursor-pointer">
-            <MdWork size={18} />
-            <span>
-              Work at <strong>Soon</strong>
-            </span>
-          </div>
+          {user.city && (
+            <div className="flex items-center gap-2 cursor-pointer">
+              <MdLocationPin size={18} />
+              <span>
+                Living in <strong>{user.city}</strong>
+              </span>
+            </div>
+          )}
+          {user.school && (
+            <div className="flex items-center gap-2 cursor-pointer">
+              <IoSchoolSharp size={18} />
+              <span>
+                Went to <strong>{user.school}</strong>
+              </span>
+            </div>
+          )}
+          {user.work && (
+            <div className="flex items-center gap-2 cursor-pointer">
+              <MdWork size={18} />
+              <span>
+                Work at <strong>{user.work}</strong>
+              </span>
+            </div>
+          )}
         </div>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 cursor-pointer">
-            <FaLink size={16} />
-            <span className="text-sky-500 font-medium">andry.dev</span>
-          </div>
+          {user.website && (
+            <Link href={user.website} className="flex items-center gap-1 cursor-pointer">
+              <FaLink size={16} />
+              <span className="text-sky-500 font-medium">{user.website}</span>
+            </Link>
+          )}
           <div className="flex items-center gap-1 cursor-pointer">
             <FaRegCalendarAlt size={16} />
-            <span>Joined July 2024</span>
+            <span>Joined {formattedDate}</span>
           </div>
         </div>
-        <button className="bg-sky-500 text-white text-xs p-2 rounded-md">Following</button>
-        <div className="flex items-center gap-1 self-end text-rose-500 text-xs cursor-pointer">
-          <MdBlock size={18} />
-          <span>Block User</span>
-        </div>
+        <UserInfoCardInteraction userId={user.id} clerkId={clerkId} isUserBlocked={isUserBlocked} isFollowing={isFollowing} isFollowingSent={isFollowingSent} />
       </div>
     </div>
   );

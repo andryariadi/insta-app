@@ -71,8 +71,8 @@ model Like {
 model Follower {
   id         String       @id @default(auto()) @map("_id") @db.ObjectId
   createdAt  DateTime     @default(now())
-  clerkId    String
-  follower   User         @relation("UserFollowers", fields: [clerkId], references: [clerkId], onDelete: Cascade)
+  followerId String
+  follower   User         @relation("UserFollowers", fields: [followerId], references: [clerkId], onDelete: Cascade)
   followingId String
   following  User         @relation("UserFollowings", fields: [followingId], references: [clerkId], onDelete: Cascade)
 }
