@@ -1,9 +1,10 @@
+import { User } from "@prisma/client";
 import Link from "next/link";
 import { FaLink, FaRegCalendarAlt } from "react-icons/fa";
 import { IoSchoolSharp } from "react-icons/io5";
 import { MdBlock, MdLocationPin, MdWork } from "react-icons/md";
 
-const UserInfoCard = ({ userId }: { userId: string }) => {
+const UserInfoCard = ({ user }: { user: User }) => {
   return (
     <div className="bg-n-1/60 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
       {/* Title */}
