@@ -1,7 +1,7 @@
 "use client";
 
 import { switchFollow } from "@/libs/action";
-import { useState } from "react";
+import { useOptimistic, useState } from "react";
 import { MdBlock } from "react-icons/md";
 
 type UserProps = {
@@ -20,6 +20,7 @@ const UserInfoCardInteraction = ({ userId, clerkId, isUserBlocked, isFollowing, 
   });
 
   const follow = async () => {
+    switchOptimisticFollow("");
     try {
       await switchFollow(userId);
       setUserState((prev) => ({
@@ -32,16 +33,22 @@ const UserInfoCardInteraction = ({ userId, clerkId, isUserBlocked, isFollowing, 
     }
   };
 
+  const [optimisticFollow, switchOptimisticFollow] = useOptimistic(userState, (state) => ({
+    ...state,
+    following: state.following && false,
+    followingRequestSent: state.following ? false : state.followingRequestSent,
+  }));
+
   return (
     <>
       <form action={follow}>
-        <button className="bg-sky-500 w-full text-white text-xs p-2 rounded-md">{userState.following ? "Following" : userState.followingRequestSent ? "Friend Request Sent" : "Follow"}</button>
+        <button className="bg-sky-500 w-full text-white text-xs p-2 rounded-md">{optimisticFollow.following ? "Following" : optimisticFollow.followingRequestSent ? "Friend Request Sent" : "Follow"}</button>
       </form>
 
       <form action="" className="self-end">
         <div className="flex items-center gap-1 text-rose-500 text-xs cursor-pointer">
           <MdBlock size={18} />
-          <span>{userState.blocked ? "Unblock User" : "Block User"}</span>
+          <span>{optimisticFollow.blocked ? "Unblock User" : "Block User"}</span>
         </div>
       </form>
     </>
