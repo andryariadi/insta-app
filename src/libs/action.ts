@@ -6,7 +6,7 @@ import prisma from "./client";
 export const switchFollow = async (userId: string) => {
   const { userId: clerkId } = auth();
 
-  if (!clerkId) throw new Error("User is not authenticated!");
+  if (!clerkId) throw new Error("User is not Authenticated!");
 
   try {
     const existingFollow = await prisma.follower.findFirst({
@@ -44,6 +44,39 @@ export const switchFollow = async (userId: string) => {
           },
         });
       }
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong!");
+  }
+};
+
+export const switchBlock = async (userId: string) => {
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) throw new Error("User is not Authenticated!");
+
+  try {
+    const existingBlock = await prisma.block.findFirst({
+      where: {
+        blockerId: clerkId,
+        blockedId: userId,
+      },
+    });
+
+    if (existingBlock) {
+      await prisma.block.delete({
+        where: {
+          id: existingBlock.id,
+        },
+      });
+    } else {
+      await prisma.block.create({
+        data: {
+          blockerId: clerkId,
+          blockedId: userId,
+        },
+      });
     }
   } catch (error) {
     console.log(error);
