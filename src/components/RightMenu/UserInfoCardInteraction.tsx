@@ -14,9 +14,9 @@ type UserProps = {
 
 const UserInfoCardInteraction = ({ userId, clerkId, isUserBlocked, isFollowing, isFollowingSent }: UserProps) => {
   const [userState, setUserState] = useState({
-    following: isFollowing,
-    blocked: isUserBlocked,
-    followingRequestSent: isFollowingSent,
+    following: isFollowing, //nilai awal false
+    blocked: isUserBlocked, //nilai awal false
+    followingRequestSent: isFollowingSent, //nilai awal false
   });
 
   const follow = async () => {
