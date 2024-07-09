@@ -17,8 +17,6 @@ const UserMediaCard = async ({ user }: { user: User }) => {
     },
   });
 
-  console.log(postInMedia, "<-----usermedia");
-
   return (
     <div className="bg-n-1/60 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
       {/* Title */}

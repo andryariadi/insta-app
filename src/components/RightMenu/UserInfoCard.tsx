@@ -6,6 +6,7 @@ import { FaLink, FaRegCalendarAlt } from "react-icons/fa";
 import { IoSchoolSharp } from "react-icons/io5";
 import { MdLocationPin, MdWork } from "react-icons/md";
 import UserInfoCardInteraction from "./UserInfoCardInteraction";
+import UpdateUser from "./UpdateUser";
 
 const UserInfoCard = async ({ user }: { user: User }) => {
   const createdAt = new Date(user.createdAt);
@@ -53,9 +54,13 @@ const UserInfoCard = async ({ user }: { user: User }) => {
       {/* Title */}
       <div className="bg-ros-500 flex items-center justify-between font-medium">
         <span className="text-gray-500">User Information</span>
-        <Link href="/" className="text-sky-500 text-xs">
-          See All
-        </Link>
+        {clerkId === user.clerkId ? (
+          <UpdateUser />
+        ) : (
+          <Link href="/" className="text-sky-500 text-xs">
+            See All
+          </Link>
+        )}
       </div>
 
       {/* Information */}
@@ -103,7 +108,7 @@ const UserInfoCard = async ({ user }: { user: User }) => {
             <span>Joined {formattedDate}</span>
           </div>
         </div>
-        <UserInfoCardInteraction userId={user.id} clerkId={clerkId} isUserBlocked={isUserBlocked} isFollowing={isFollowing} isFollowingSent={isFollowingSent} />
+        {clerkId && clerkId !== user.clerkId && <UserInfoCardInteraction userId={user.id} isUserBlocked={isUserBlocked} isFollowing={isFollowing} isFollowingSent={isFollowingSent} />}
       </div>
     </div>
   );

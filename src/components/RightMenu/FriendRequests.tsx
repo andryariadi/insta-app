@@ -1,7 +1,24 @@
+import prisma from "@/libs/client";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
-const FriendRequests = () => {
+const FriendRequests = async () => {
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) return null;
+
+  const request = await prisma.followRequest.findMany({
+    where: {
+      receiverId: clerkId,
+    },
+    include: {
+      sender: true,
+    },
+  });
+
+  console.log(request, "<----direquest");
+
   return (
     <>
       <div className="bg-n-1/60 backdrop-blur sticky top-28 h-max z-10 p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">

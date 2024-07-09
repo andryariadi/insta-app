@@ -6,13 +6,12 @@ import { MdBlock } from "react-icons/md";
 
 type UserProps = {
   userId: string;
-  clerkId: string | null;
   isUserBlocked: boolean;
   isFollowing: boolean;
   isFollowingSent: boolean;
 };
 
-const UserInfoCardInteraction = ({ userId, clerkId, isUserBlocked, isFollowing, isFollowingSent }: UserProps) => {
+const UserInfoCardInteraction = ({ userId, isUserBlocked, isFollowing, isFollowingSent }: UserProps) => {
   const [userState, setUserState] = useState({
     following: isFollowing, //nilai awal false
     blocked: isUserBlocked, //nilai awal false
