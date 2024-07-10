@@ -2,13 +2,14 @@ import prisma from "@/libs/client";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
+import FriendRequestLists from "./FriendRequestLists";
 
 const FriendRequests = async () => {
   const { userId: clerkId } = auth();
 
   if (!clerkId) return null;
 
-  const request = await prisma.followRequest.findMany({
+  const requests = await prisma.followRequest.findMany({
     where: {
       receiverId: clerkId,
     },
@@ -17,7 +18,7 @@ const FriendRequests = async () => {
     },
   });
 
-  console.log(request, "<----direquest");
+  if (requests.length === 0) return null;
 
   return (
     <>
@@ -31,18 +32,7 @@ const FriendRequests = async () => {
         </div>
 
         {/* User */}
-        {[1, 2, 3].map((item) => (
-          <div key={item} className="bg-ambr-500 flex items-center justify-between">
-            <div className="bg-sy-600 flex items-center gap-4">
-              <Image src="https://images.pexels.com/photos/5473950/pexels-photo-5473950.jpeg?auto=compress&cs=tinysrgb&w=600" alt="User" width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
-              <span className="font-semibold cursor-pointer">Tasmiah</span>
-            </div>
-            <div className="bg-gren-600 flex items-center gap-3">
-              <Image src="/accept.png" alt="User" width={20} height={20} className="cursor-pointer" />
-              <Image src="/reject.png" alt="User" width={20} height={20} className="cursor-pointer" />
-            </div>
-          </div>
-        ))}
+        <FriendRequestLists requests={requests} />
       </div>
     </>
   );

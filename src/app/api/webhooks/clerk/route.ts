@@ -93,6 +93,12 @@ export async function POST(req: Request) {
 
   if (eventType === "user.deleted") {
     try {
+      const user = await prisma.user.findUnique({
+        where: { clerkId: id },
+      });
+
+      if (!user) return new Response("User not found", { status: 404 });
+
       await prisma.user.delete({
         where: {
           clerkId: id,

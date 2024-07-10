@@ -83,3 +83,61 @@ export const switchBlock = async (userId: string) => {
     throw new Error("Something went wrong!");
   }
 };
+
+export const acceptFollowReq = async (userId: string) => {
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) throw new Error("User is not Authentication!");
+
+  try {
+    const existingFollowReq = await prisma.followRequest.findFirst({
+      where: {
+        senderId: userId,
+        receiverId: clerkId,
+      },
+    });
+
+    if (existingFollowReq) {
+      await prisma.followRequest.delete({
+        where: {
+          id: existingFollowReq.id,
+        },
+      });
+    } else {
+      await prisma.follower.create({
+        data: {
+          followerId: userId,
+          followingId: clerkId,
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong!");
+  }
+};
+export const declineFollowReq = async (userId: string) => {
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) throw new Error("User is not Authentication!");
+
+  try {
+    const existingFollowReq = await prisma.followRequest.findFirst({
+      where: {
+        senderId: userId,
+        receiverId: clerkId,
+      },
+    });
+
+    if (existingFollowReq) {
+      await prisma.followRequest.delete({
+        where: {
+          id: existingFollowReq.id,
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong!");
+  }
+};

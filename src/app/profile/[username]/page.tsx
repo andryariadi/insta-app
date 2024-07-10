@@ -43,7 +43,7 @@ const ProfilePage = async ({ params }: { params: { username: string } }) => {
 
   if (isBlocked) return notFound();
 
-  console.log(username, user, clerkId, "<---profilpage");
+  // console.log(username, user, clerkId, "<---profilpage");
 
   return (
     <>
