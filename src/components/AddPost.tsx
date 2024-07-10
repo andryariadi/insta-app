@@ -12,12 +12,14 @@ const AddPost = () => {
 
       {/* Post */}
       <div className="bg-violt-500 flex-1">
-        <form className="bg-tal-500 flex gap-4">
+        <form className="bg-tal-500 flex gap-4 items-center">
           <textarea name="desc" placeholder="What's on your mind?" className="flex-1 bg-slate-100 p-2 rounded-lg focus:outline-none"></textarea>
-          <BsEmojiWinkFill size={24} className="text-amber-500 self-end cursor-pointer" />
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg">
-            Send
-          </button>
+          <div className="flex flex-col gap-2">
+            <BsEmojiWinkFill size={18} className="text-amber-500 self-end cursor-pointer" />
+            <button type="submit" className="bg-blue-500 text-white text-xs p-2 rounded-lg">
+              Send
+            </button>
+          </div>
         </form>
 
         {/* Post Options */}
