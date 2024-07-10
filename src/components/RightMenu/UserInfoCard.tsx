@@ -50,12 +50,12 @@ const UserInfoCard = async ({ user }: { user: User }) => {
   }
 
   return (
-    <div className="bg-n-1/60 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
+    <div className="bg-n-1/60 backdrop-blur sticky top-28 h-max z-10 p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
       {/* Title */}
       <div className="bg-ros-500 flex items-center justify-between font-medium">
         <span className="text-gray-500">User Information</span>
         {clerkId === user.clerkId ? (
-          <UpdateUser />
+          <UpdateUser user={user} />
         ) : (
           <Link href="/" className="text-sky-500 text-xs">
             See All

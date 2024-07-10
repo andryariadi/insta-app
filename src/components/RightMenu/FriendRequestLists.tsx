@@ -12,7 +12,6 @@ const FriendRequestLists = ({ requests }: { requests: RequestAndUser[] }) => {
 
   const accept = async (requestId: number, userId: string) => {
     removeOptimisticRequest(requestId);
-
     try {
       await acceptFollowReq(userId);
       setRequestState(requestState.filter((req) => req.id !== requestId.toString()));
@@ -23,7 +22,6 @@ const FriendRequestLists = ({ requests }: { requests: RequestAndUser[] }) => {
 
   const decline = async (requestId: number, userId: string) => {
     removeOptimisticRequest(requestId);
-
     try {
       await declineFollowReq(userId);
       setRequestState(requestState.filter((req) => req.id !== requestId.toString()));
@@ -49,6 +47,7 @@ const FriendRequestLists = ({ requests }: { requests: RequestAndUser[] }) => {
                 <Image src="/accept.png" alt="User" width={20} height={20} className="cursor-pointer" />
               </button>
             </form>
+
             <form action={() => decline(parseInt(request.id), request.sender.id)}>
               <button>
                 <Image src="/reject.png" alt="User" width={20} height={20} className="cursor-pointer" />

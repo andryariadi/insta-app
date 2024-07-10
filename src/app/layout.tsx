@@ -23,7 +23,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={poppins.className}>
-          <div className="bg-n-1/70 backdrop-blur shadow-sm fixed top-0 left-0 z-50 w-full px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+          <div className="bg-n-1/70 backdrop-blur shadow-sm fixed top-0 left-0 z-30 w-full px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
             <Navbar />
           </div>
           <div className="bg-slate-100 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-[6rem]">{children}</div>

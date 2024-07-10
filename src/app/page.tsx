@@ -24,7 +24,7 @@ const Homepage = () => {
 
         {/* Right */}
         <div className="bg-tal-500 hidden lg:block w-[30%]">
-          <RightMenu userId="" />
+          <RightMenu />
         </div>
       </div>
     </>
