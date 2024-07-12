@@ -1,8 +1,15 @@
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
-const config: Config = {
-  content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
+const defaultTheme = require("tailwindcss/defaultTheme");
+
+const colors = require("tailwindcss/colors");
+const { default: flattenColorPalette } = require("tailwindcss/lib/util/flattenColorPalette");
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{ts,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -36,10 +43,6 @@ const config: Config = {
         },
         logo: "#03AED2",
       },
-      // fontFamily: {
-      //   sans: ["var(--font-geist-sans)"],
-      //   mono: ["var(--font-geist-mono)"],
-      // },
     },
     fontFamily: {
       sans: ["var(--font-sora)", ...fontFamily.sans],
@@ -47,6 +50,14 @@ const config: Config = {
       grotesk: "var(--font-grotesk)",
     },
   },
-  plugins: [],
+  plugins: [addVariablesForColors],
 };
-export default config;
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]));
+
+  addBase({
+    ":root": newVars,
+  });
+}

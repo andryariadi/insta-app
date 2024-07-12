@@ -153,7 +153,7 @@ export const updateProfile = async (prevState: { success: boolean; error: boolea
   const Profile = z.object({
     name: z.string({ invalid_type_error: "Name must be a string." }).max(20, { message: "Name must be less than 20 characters." }).optional(),
 
-    surname: z.string({ invalid_type_error: "Surname must be a string." }).max(1, { message: "Surname must be less than 20 characters." }).optional(),
+    surname: z.string({ invalid_type_error: "Surname must be a string." }).max(20, { message: "Surname must be less than 20 characters." }).optional(),
 
     cover: z.string({ invalid_type_error: "Cover must be a string." }).optional(),
 
@@ -165,7 +165,7 @@ export const updateProfile = async (prevState: { success: boolean; error: boolea
 
     work: z.string({ invalid_type_error: "Work must be a string." }).max(20, { message: "Work must be less than 20 characters." }).optional(),
 
-    website: z.string({ invalid_type_error: "Website must be a string." }).max(20, { message: "Website must be less than 20 characters." }).url({ message: "Website must be a valid URL." }).optional(),
+    website: z.string({ invalid_type_error: "Website must be a string." }).max(20, { message: "Website must be less than 20 characters." }).optional(),
   });
 
   const validatedFields = Profile.safeParse({ cover, ...filteredFields });
