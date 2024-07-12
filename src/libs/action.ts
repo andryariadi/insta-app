@@ -143,34 +143,43 @@ export const declineFollowReq = async (userId: string) => {
   }
 };
 
-export const updateProfile = async (formData: FormData, cover: any) => {
+export const updateProfile = async (prevState: { success: boolean; error: boolean }, payload: { formData: FormData; cover: string }) => {
+  const { formData, cover } = payload;
+
   const fields = Object.fromEntries(formData);
 
   const filteredFields = Object.fromEntries(Object.entries(fields).filter(([_, value]) => value !== ""));
 
-  console.log({ filteredFields, cover }, "<----functionupdateuser");
-
   const Profile = z.object({
-    name: z.string().optional(),
-    surname: z.string().max(60).optional(),
-    cover: z.string().optional(),
-    description: z.string().max(225).optional(),
-    city: z.string().max(60).optional(),
-    school: z.string().max(60).optional(),
-    work: z.string().max(60).optional(),
-    website: z.string().max(60).optional(),
+    name: z.string({ invalid_type_error: "Name must be a string." }).max(20, { message: "Name must be less than 20 characters." }).optional(),
+
+    surname: z.string({ invalid_type_error: "Surname must be a string." }).max(1, { message: "Surname must be less than 20 characters." }).optional(),
+
+    cover: z.string({ invalid_type_error: "Cover must be a string." }).optional(),
+
+    description: z.string({ invalid_type_error: "Description must be a string." }).max(225, { message: "Description must be less than 225 characters." }).optional(),
+
+    city: z.string({ invalid_type_error: "City must be a string." }).max(20, { message: "City must be less than 20 characters." }).optional(),
+
+    school: z.string({ invalid_type_error: "School must be a string." }).max(20, { message: "School must be less than 20 characters." }).optional(),
+
+    work: z.string({ invalid_type_error: "Work must be a string." }).max(20, { message: "Work must be less than 20 characters." }).optional(),
+
+    website: z.string({ invalid_type_error: "Website must be a string." }).max(20, { message: "Website must be less than 20 characters." }).url({ message: "Website must be a valid URL." }).optional(),
   });
 
   const validatedFields = Profile.safeParse({ cover, ...filteredFields });
 
   if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors, "<----errorprofile");
-    return "error";
+    const errorMessages = validatedFields.error.flatten().fieldErrors;
+    console.log(errorMessages, "<----errorprofile");
+
+    return { success: false, error: true, errors: errorMessages };
   }
 
   const { userId: clerkId } = auth();
 
-  if (!clerkId) return "error";
+  if (!clerkId) return { success: false, error: true };
 
   try {
     await prisma.user.update({
@@ -179,7 +188,10 @@ export const updateProfile = async (formData: FormData, cover: any) => {
       },
       data: validatedFields.data,
     });
+
+    return { success: true, error: false };
   } catch (error) {
     console.log(error);
+    return { success: false, error: true };
   }
 };

@@ -4,24 +4,33 @@ import { updateProfile } from "@/libs/action";
 import { User } from "@prisma/client";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useState } from "react";
 import { CiLocationOn, CiUser } from "react-icons/ci";
 import { GoLink } from "react-icons/go";
 import { IoIosCloseCircle } from "react-icons/io";
 import { IoSchoolOutline } from "react-icons/io5";
 import { PiBagThin, PiTextAlignLeftThin } from "react-icons/pi";
+import UpdateButton from "./UpdateButton";
 
 const UpdateUser = ({ user }: { user: User }) => {
   const [open, setOpen] = useState(false);
   const [cover, setCover] = useState<any>(false);
 
+  const router = useRouter();
+
+  const [state, formAction] = useActionState(updateProfile, { success: false, error: false, errors: {} });
+
   const hanldeUpdateProfile = (formData: FormData) => {
-    updateProfile(formData, cover?.secure_url);
+    formAction({ formData, cover: cover?.secure_url || "" });
   };
 
   const handleClose = () => {
     setOpen(!open);
+    state.success && router.refresh();
   };
+
+  console.log(state, "<----diupdateuser");
 
   return (
     <div>
@@ -60,6 +69,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                   <input type="text" name="name" placeholder={user.name || "Your first name"} className="bg-transparent focus:outline-none placeholder:text-xs placeholder:text-n-2" />
                   <CiUser size={20} className="text-gray-500" />
                 </div>
+                {state.error && state.errors?.name && <span className="text-red-500 text-xs">{state.errors.name}</span>}
               </div>
               <div className="bg-ambr-500 flex flex-col gap-2">
                 <label htmlFor="" className="text-xs">
@@ -69,6 +79,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                   <input type="text" name="surname" placeholder={user.surname || "Your last name"} className="bg-transparent focus:outline-none placeholder:text-xs placeholder:text-n-2" />
                   <CiUser size={20} className="text-gray-500" />
                 </div>
+                {state.error && state.errors?.surname && <span className="text-red-500 text-xs">{state.errors.surname}</span>}
               </div>
               <div className="bg-ambr-500 flex flex-col gap-2">
                 <label htmlFor="" className="text-xs">
@@ -78,6 +89,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                   <input type="text" name="description" placeholder={user.description || "Life is beautiful..."} className="bg-transparent focus:outline-none placeholder:text-xs placeholder:text-n-2" />
                   <PiTextAlignLeftThin size={20} className="text-gray-500" />
                 </div>
+                {state.error && state.errors?.description && <span className="text-red-500 text-xs">{state.errors.description}</span>}
               </div>
               <div className="bg-ambr-500 flex flex-col gap-2">
                 <label htmlFor="" className="text-xs">
@@ -87,6 +99,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                   <input type="text" name="city" placeholder={user.city || "Anywhere..."} className="bg-transparent focus:outline-none placeholder:text-xs placeholder:text-n-2" />
                   <CiLocationOn size={20} className="text-gray-500" />
                 </div>
+                {state.error && state.errors?.city && <span className="text-red-500 text-xs">{state.errors.city}</span>}
               </div>
               <div className="bg-ambr-500 flex flex-col gap-2">
                 <label htmlFor="" className="text-xs">
@@ -96,15 +109,17 @@ const UpdateUser = ({ user }: { user: User }) => {
                   <input type="text" name="school" placeholder={user.school || "Place your grow up"} className="bg-transparent focus:outline-none placeholder:text-xs placeholder:text-n-2" />
                   <IoSchoolOutline size={20} className="text-gray-500" />
                 </div>
+                {state.error && state.errors?.school && <span className="text-red-500 text-xs">{state.errors.school}</span>}
               </div>
               <div className="bg-ambr-500 flex flex-col gap-2">
                 <label htmlFor="" className="text-xs">
                   Work
                 </label>
                 <div className="bg-slate-100 p-3 rounded-lg flex items-center gap-2 border border-slate-100 hover:border-logo transition-all duration-300">
-                  <input type="text" name="work" placeholder={user.work || "Place your make money"} className="bg-transparent focus:outline-none placeholder:text-xs placeholder:text-n-2" />
+                  <input type="text" name="work" placeholder={user.work || "Your work..."} className="bg-transparent focus:outline-none placeholder:text-xs placeholder:text-n-2" />
                   <PiBagThin size={20} className="text-gray-500" />
                 </div>
+                {state.error && state.errors?.work && <span className="text-red-500 text-xs">{state.errors.work}</span>}
               </div>
               <div className="bg-ambr-500 flex flex-col gap-2">
                 <label htmlFor="">Website</label>
@@ -112,9 +127,16 @@ const UpdateUser = ({ user }: { user: User }) => {
                   <input type="text" name="website" placeholder={user.website || "link.dev"} className="bg-transparent focus:outline-none placeholder:text-xs placeholder:text-n-2" />
                   <GoLink size={18} className="text-gray-500" />
                 </div>
+                {state.error && state.errors?.website && <span className="text-red-500 text-xs">{state.errors.website}</span>}
               </div>
             </div>
-            <button className="bg-sky-500 text-white text-xs p-3 rounded-md">Update</button>
+
+            <UpdateButton />
+
+            {state.success && <span className="text-green-500 text-xs">User profile updated successfully!</span>}
+
+            {state.error && <span className="text-rose-500 text-xs">Something went wrong!</span>}
+
             <IoIosCloseCircle size={20} onClick={handleClose} className="absolute cursor-pointer top-3 right-3 text-gray-500" />
           </form>
         </div>
