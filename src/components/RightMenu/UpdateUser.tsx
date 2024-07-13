@@ -31,7 +31,7 @@ const UpdateUser = ({ user }: { user: User }) => {
     state.success && router.refresh();
   };
 
-  console.log(state, "<----diupdateuser");
+  // console.log(state, "<----diupdateuser");
 
   return (
     <div>
