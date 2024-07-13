@@ -2,6 +2,7 @@ import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import Comments from "./Comments";
 import type { Post, User } from "@prisma/client";
+import PostInteraction from "./PostInteraction";
 
 type PostType = Post & { user: User } & { likes: [{ clerkId: string }] } & { _count: { comments: number } };
 
@@ -31,35 +32,7 @@ const Post = ({ post }: { post: PostType }) => {
         </div>
 
         {/* Interaction */}
-        <div className="bg-ros-500 flex items-center justify-between my-4 text-sm">
-          <div className="flex items-center gap-8">
-            <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
-              <Image src="/like.png" alt="Like" width={16} height={16} className="cursor-pointer" />
-              <span className="text-gray-300">|</span>
-              <span className="text-gray-500">
-                123
-                <span className="hidden md:inline ml-1">Likes</span>
-              </span>
-            </div>
-            <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
-              <Image src="/comment.png" alt="Comment" width={16} height={16} className="cursor-pointer" />
-              <span className="text-gray-300">|</span>
-              <span className="text-gray-500">
-                123
-                <span className="hidden md:inline ml-1">Comments</span>
-              </span>
-            </div>
-          </div>
-          <div>
-            <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
-              <Image src="/share.png" alt="Share" width={16} height={16} className="cursor-pointer" />
-              <span className="text-gray-300">|</span>
-              <span className="text-gray-500">
-                <span className="hidden md:inline ml-1">Share</span>
-              </span>
-            </div>
-          </div>
-        </div>
+        <PostInteraction postId={post.id} likes={post.likes.map((like) => like.clerkId)} commentNumber={post._count.comments} />
 
         {/* Comments */}
         <Comments />

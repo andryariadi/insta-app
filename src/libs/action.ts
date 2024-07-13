@@ -195,3 +195,36 @@ export const updateProfile = async (prevState: { success: boolean; error: boolea
     return { success: false, error: true };
   }
 };
+
+export const switchLike = async (postId: string) => {
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) throw new Error("User is not Authenticated!");
+
+  try {
+    const existingLike = await prisma.like.findFirst({
+      where: {
+        postId,
+        clerkId,
+      },
+    });
+
+    if (existingLike) {
+      await prisma.like.delete({
+        where: {
+          id: existingLike.id,
+        },
+      });
+    } else {
+      await prisma.like.create({
+        data: {
+          postId,
+          clerkId,
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong!");
+  }
+};
