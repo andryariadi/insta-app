@@ -16,7 +16,7 @@ const Post = ({ post }: { post: PostType }) => {
         <div className="bg-ambr-500 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Image src={post.user.avatar || "/noAvatar.png"} alt="Feed" width={40} height={40} className="w-10 h-10 rounded-full" />
-            <span className="font-medium">({post.user.name && post.user.surname ? `${post.user.name} ${post.user.surname}` : post.user.username})</span>
+            <span className="font-medium">{post.user.name && post.user.surname ? `${post.user.name} ${post.user.surname}` : post.user.username}</span>
           </div>
           <BsThreeDots size={24} className="text-gray-400 cursor-pointer" />
         </div>
@@ -25,7 +25,7 @@ const Post = ({ post }: { post: PostType }) => {
         <div className="bg-violt-500 flex flex-col gap-4">
           {post.img && (
             <div className="w-full min-h-96 relative">
-              <Image src="https://images.pexels.com/photos/6498726/pexels-photo-6498726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Feed" fill className="object-cover rounded-md" />
+              <Image src={post.img} alt="Feed" fill className="object-cover rounded-md" />
             </div>
           )}
           <p>{post.desc}</p>

@@ -31,8 +31,8 @@ const UserMediaCard = async ({ user }: { user: User }) => {
       <div className="bg-ambr-500 flex items-center justify-center flex-wrap gap-4">
         {postInMedia.length
           ? postInMedia.map((post) => (
-              <div key={post.id}>
-                <Image src={post.img!} alt="User" width={100} height={100} className="w-20 h-20 rounded-lg object-cover" />
+              <div key={post.id} className="relative w-1/5 h-20">
+                <Image src={post.img!} alt="User" fill className="rounded-lg object-cover" />
               </div>
             ))
           : "No media found!"}
