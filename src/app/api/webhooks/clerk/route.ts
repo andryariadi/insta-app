@@ -76,7 +76,7 @@ export async function POST(req: Request) {
     try {
       await prisma.user.update({
         where: {
-          clerkId: id,
+          clerkId: id as string,
         },
         data: {
           username: JSON.parse(body).data.username,

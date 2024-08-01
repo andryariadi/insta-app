@@ -1,6 +1,5 @@
 import prisma from "@/libs/client";
 import { auth } from "@clerk/nextjs/server";
-import Image from "next/image";
 import Link from "next/link";
 import FriendRequestLists from "./FriendRequestLists";
 
@@ -9,16 +8,24 @@ const FriendRequests = async () => {
 
   if (!clerkId) return null;
 
+  const user = await prisma.user.findUnique({
+    where: {
+      clerkId,
+    },
+  });
+
   const requests = await prisma.followRequest.findMany({
     where: {
-      receiverId: clerkId,
+      receiverId: user?.id,
     },
     include: {
       sender: true,
     },
   });
 
-  if (requests.length === 0) return null;
+  // if (requests.length === 0) return null;
+
+  console.log(requests, "<----difriendrequest");
 
   return (
     <>

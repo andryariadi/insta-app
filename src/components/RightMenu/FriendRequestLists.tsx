@@ -10,27 +10,27 @@ type RequestAndUser = FollowRequest & { sender: User };
 const FriendRequestLists = ({ requests }: { requests: RequestAndUser[] }) => {
   const [requestState, setRequestState] = useState(requests);
 
-  const accept = async (requestId: number, userId: string) => {
+  const accept = async (requestId: string, userId: string) => {
     removeOptimisticRequest(requestId);
     try {
       await acceptFollowReq(userId);
-      setRequestState(requestState.filter((req) => req.id !== requestId.toString()));
+      setRequestState(requestState.filter((req) => req.id !== requestId));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const decline = async (requestId: number, userId: string) => {
+  const decline = async (requestId: string, userId: string) => {
     removeOptimisticRequest(requestId);
     try {
       await declineFollowReq(userId);
-      setRequestState(requestState.filter((req) => req.id !== requestId.toString()));
+      setRequestState(requestState.filter((req) => req.id !== requestId));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const [optimisticRequest, removeOptimisticRequest] = useOptimistic(requestState, (state, value: number) => state.filter((req) => req.id !== value.toString()));
+  const [optimisticRequest, removeOptimisticRequest] = useOptimistic(requestState, (state, value: string) => state.filter((req) => req.id !== value));
 
   console.log(requests, "<----direquestcomp");
   return (
@@ -42,13 +42,13 @@ const FriendRequestLists = ({ requests }: { requests: RequestAndUser[] }) => {
             <span className="font-semibold cursor-pointer">{request.sender.name && request.sender.surname ? `${request.sender.name} ${request.sender.surname}` : request.sender.username}</span>
           </div>
           <div className="bg-gren-600 flex items-center gap-3">
-            <form action={() => accept(parseInt(request.id), request.sender.id)}>
+            <form action={() => accept(request.id, request.sender.id)}>
               <button>
                 <Image src="/accept.png" alt="User" width={20} height={20} className="cursor-pointer" />
               </button>
             </form>
 
-            <form action={() => decline(parseInt(request.id), request.sender.id)}>
+            <form action={() => decline(request.id, request.sender.id)}>
               <button>
                 <Image src="/reject.png" alt="User" width={20} height={20} className="cursor-pointer" />
               </button>

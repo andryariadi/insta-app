@@ -7,7 +7,7 @@ import PostInteraction from "./PostInteraction";
 type PostType = Post & { user: User } & { likes: [{ clerkId: string }] } & { _count: { comments: number } };
 
 const Post = ({ post }: { post: PostType }) => {
-  console.log(post, "<----dipost");
+  // console.log(post, "<----dipost");
 
   return (
     <>
