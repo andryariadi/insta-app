@@ -38,21 +38,18 @@ const Feed = async ({ username }: { username?: string }) => {
 
   // Fetch post in home page
   if (!username && clerkId) {
-    const following = await prisma.follower.findMany({
-      where: {
-        followerId: clerkId,
-      },
-      select: {
-        followingId: true,
-      },
-    });
+    const followers = await prisma.follower.findMany();
 
-    const followingIds = following.map((f) => f.followingId);
+    const selectedFollowers = followers.filter((f) => f.followerId !== clerkId);
+
+    const follower = selectedFollowers.map((f) => f.followerId);
+
+    console.log({ followers, selectedFollowers, follower }, "<----difeed");
 
     posts = await prisma.post.findMany({
       where: {
         clerkId: {
-          in: followingIds,
+          in: follower,
         },
       },
       include: {

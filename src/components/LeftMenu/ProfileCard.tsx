@@ -22,7 +22,7 @@ const ProfileCard = async () => {
 
   if (!user) return null;
 
-  console.log(user, "<---diprofilcard");
+  // console.log(user, "<---diprofilcard");
 
   return (
     <>

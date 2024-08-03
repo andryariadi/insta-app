@@ -23,9 +23,9 @@ const FriendRequests = async () => {
     },
   });
 
-  // if (requests.length === 0) return null;
+  if (requests.length === 0) return null;
 
-  console.log(requests, "<----difriendrequest");
+  // console.log(requests, "<----difriendrequest");
 
   return (
     <>

@@ -91,12 +91,20 @@ export const acceptFollowReq = async (userId: string) => {
   if (!clerkId) throw new Error("User is not Authentication!");
 
   try {
+    const user = await prisma.user.findUnique({
+      where: {
+        clerkId,
+      },
+    });
+
     const existingFollowReq = await prisma.followRequest.findFirst({
       where: {
         senderId: userId,
-        receiverId: clerkId,
+        receiverId: user?.id,
       },
     });
+
+    // console.log(existingFollowReq, "<---diacceptFollowReq");
 
     if (existingFollowReq) {
       await prisma.followRequest.delete({
@@ -104,7 +112,7 @@ export const acceptFollowReq = async (userId: string) => {
           id: existingFollowReq.id,
         },
       });
-    } else {
+
       await prisma.follower.create({
         data: {
           followerId: userId,
@@ -123,10 +131,15 @@ export const declineFollowReq = async (userId: string) => {
   if (!clerkId) throw new Error("User is not Authentication!");
 
   try {
+    const user = await prisma.user.findUnique({
+      where: {
+        clerkId,
+      },
+    });
     const existingFollowReq = await prisma.followRequest.findFirst({
       where: {
         senderId: userId,
-        receiverId: clerkId,
+        receiverId: user?.id,
       },
     });
 

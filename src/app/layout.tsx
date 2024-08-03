@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={poppins.className}>
           <div className="bg-n-1/70 backdrop-blur shadow-sm fixed top-0 left-0 z-30 w-full px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
             <Navbar />
