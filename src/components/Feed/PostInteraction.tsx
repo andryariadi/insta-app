@@ -33,6 +33,7 @@ const PostInteraction = ({ postId, likes, commentNumber }: { postId: string; lik
       console.log(error);
     }
   };
+  console.log(optimisticLike, "<---dipostinteraction");
 
   return (
     <div className="bg-ros-500 flex items-center justify-between my-4 text-sm">

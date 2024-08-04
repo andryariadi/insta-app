@@ -3,7 +3,7 @@ import Post from "./Post";
 import prisma from "@/libs/client";
 
 const Feed = async ({ username }: { username?: string }) => {
-  console.log(username, "<----difeed");
+  // console.log(username, "<----difeed");
 
   let posts: any[] = [];
 
@@ -44,7 +44,7 @@ const Feed = async ({ username }: { username?: string }) => {
 
     const follower = selectedFollowers.map((f) => f.followerId);
 
-    console.log({ followers, selectedFollowers, follower }, "<----difeed");
+    // console.log({ followers, selectedFollowers, follower }, "<----difeed");
 
     posts = await prisma.post.findMany({
       where: {
