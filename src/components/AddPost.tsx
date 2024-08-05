@@ -7,13 +7,14 @@ import { useState } from "react";
 import { BsEmojiWinkFill } from "react-icons/bs";
 import AddPostBtn from "./Feed/AddPostBtn";
 import { addPost } from "@/libs/action";
+import { Loading } from "./Loading";
 
 const AddPost = () => {
   const { user, isLoaded } = useUser();
   const [desc, setDesc] = useState("");
   const [img, setImg] = useState<any>("");
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return <Loading />;
 
   const handlePost = (formData: FormData) => {
     addPost(formData, img?.secure_url || "");

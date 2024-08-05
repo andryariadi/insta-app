@@ -1,9 +1,22 @@
-const Loading = () => {
+export const Loading = () => {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="loader"></div>
+      <div className="loading"></div>
+    </div>
+  );
+};
+export const LoaderBtn = () => {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="loader-btn"></div>
     </div>
   );
 };
 
-export default Loading;
+export const LoaderAuth = () => {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="loader-auth"></div>
+    </div>
+  );
+};

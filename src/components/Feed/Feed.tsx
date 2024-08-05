@@ -1,6 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import Post from "./Post";
 import prisma from "@/libs/client";
+import { Suspense } from "react";
+import { Loading } from "../Loading";
 
 const Feed = async ({ username }: { username?: string }) => {
   // console.log(username, "<----difeed");
@@ -44,14 +46,14 @@ const Feed = async ({ username }: { username?: string }) => {
 
     const follower = selectedFollowers.map((f) => f.followerId);
 
-    const ids = [clerkId, ...follower];
+    // const ids = [clerkId, ...follower];
 
     // console.log({ followers, selectedFollowers, follower }, "<----difeed");
 
     posts = await prisma.post.findMany({
       where: {
         clerkId: {
-          in: ids,
+          in: follower,
         },
       },
       include: {
@@ -77,7 +79,9 @@ const Feed = async ({ username }: { username?: string }) => {
 
   return (
     <>
-      <div className="bg-n-1/60 backdrop-blur p-4 rounded-lg shadow-sm flex flex-col gap-12">{posts.length ? posts.map((post) => <Post key={post.id} post={post} />) : <div>No posts found</div>}</div>
+      <div className="bg-n-1/60 backdrop-blur p-4 rounded-lg shadow-sm flex flex-col gap-12">
+        <Suspense fallback={<Loading />}>{posts.length ? posts.map((post) => <Post key={post.id} post={post} />) : <div>No posts found</div>}</Suspense>
+      </div>
     </>
   );
 };

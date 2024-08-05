@@ -9,6 +9,7 @@ import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from "@cle
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Search from "./Search";
+import { LoaderAuth } from "./Loading";
 
 const Navbar = () => {
   return (
@@ -45,7 +46,7 @@ const Navbar = () => {
         {/* Right */}
         <div className="bg-sy-500 w-1/2 md:w-[25%] h-full flex items-center justify-end gap-3">
           <ClerkLoading>
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white" />
+            <LoaderAuth />
           </ClerkLoading>
 
           <ClerkLoaded>
