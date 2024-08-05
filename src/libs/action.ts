@@ -3,6 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 import prisma from "./client";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
 export const switchFollow = async (userId: string) => {
   const { userId: clerkId } = auth();
@@ -262,5 +263,38 @@ export const addComment = async (desc: string, postId: string) => {
   } catch (error) {
     console.log(error);
     throw new Error("Something went wrong!");
+  }
+};
+
+export const addPost = async (formData: FormData, img: string) => {
+  const desc = formData.get("desc") as string;
+
+  const Desc = z.string().min(1, { message: "Description is required" }).max(225, { message: "Description must be less than 225 characters" });
+
+  const validatedDesc = Desc.safeParse(desc);
+
+  if (!validatedDesc.success) {
+    const errorMessages = validatedDesc.error.flatten().fieldErrors;
+    console.log(errorMessages, "<----errorprofile");
+
+    return { success: false, error: true, errors: errorMessages };
+  }
+
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) throw new Error("User is not Authenticated!");
+
+  try {
+    await prisma.post.create({
+      data: {
+        desc: validatedDesc.data,
+        img,
+        clerkId,
+      },
+    });
+
+    revalidatePath("/");
+  } catch (error) {
+    console.log(error);
   }
 };
