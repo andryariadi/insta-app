@@ -35,7 +35,7 @@ const Post = ({ post }: { post: PostType }) => {
         <PostInteraction postId={post.id} likes={post.likes.map((like) => like.clerkId)} commentNumber={post._count.comments} />
 
         {/* Comments */}
-        <Comments />
+        <Comments postId={post.id} />
       </div>
     </>
   );
