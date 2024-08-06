@@ -1,13 +1,16 @@
 import Image from "next/image";
-import { BsThreeDots } from "react-icons/bs";
 import Comments from "./Comments";
 import type { Post, User } from "@prisma/client";
 import PostInteraction from "./PostInteraction";
+import PostInfo from "./PostInfo";
+import { auth } from "@clerk/nextjs/server";
 
 type PostType = Post & { user: User } & { likes: [{ clerkId: string }] } & { _count: { comments: number } };
 
 const Post = ({ post }: { post: PostType }) => {
   // console.log(post, "<----dipost");
+
+  const { userId: clerkId } = auth();
 
   return (
     <>
@@ -18,7 +21,7 @@ const Post = ({ post }: { post: PostType }) => {
             <Image src={post.user.avatar || "/noAvatar.png"} alt="Feed" width={40} height={40} className="w-10 h-10 rounded-full" />
             <span className="font-medium">{post.user.name && post.user.surname ? `${post.user.name} ${post.user.surname}` : post.user.username}</span>
           </div>
-          <BsThreeDots size={24} className="text-gray-400 cursor-pointer" />
+          {clerkId === post.user.clerkId && <PostInfo postId={post.id} />}
         </div>
 
         {/* Desc */}

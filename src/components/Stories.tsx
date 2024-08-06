@@ -37,7 +37,7 @@ const Stories = async () => {
 
   return (
     <>
-      <div className="bg-n-1/60 backdrop-blur p-4 rounded-lg shadow-sm text-xs">
+      <div className="bg-n-1/60 backdrop-blur p-4 rounded-lg shadow-sm text-xs relative z-40">
         <div className="bg-ambr-500 stories overflow-x-scroll p-1">
           <div className="bg-violt-700 flex gap-8 w-max mb-1">
             <StoryLists stories={stories} />

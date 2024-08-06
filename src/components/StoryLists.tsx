@@ -5,15 +5,18 @@ import { useUser } from "@clerk/nextjs";
 import { Story, User } from "@prisma/client";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useOptimistic, useState } from "react";
+import { useEffect, useOptimistic, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { Loading } from "./Loading";
+import ViewStory from "./ViewStory";
 
 type StoryProp = Story & { user: User };
 
 const StoryLists = ({ stories }: { stories: StoryProp[] }) => {
   const [storyLists, setStoryLists] = useState(stories);
   const [img, setImg] = useState<any>("");
+  const [openView, setOpenView] = useState(false);
+  const [selectedStory, setSelectedStory] = useState<StoryProp | null>(null);
 
   const { user, isLoaded } = useUser();
 
@@ -34,7 +37,7 @@ const StoryLists = ({ stories }: { stories: StoryProp[] }) => {
       user: {
         id: user.id,
         clerkId: user.id,
-        username: "Sending please wait...",
+        username: "Sending...",
         avatar: user.imageUrl || "/noAvatar.png",
         cover: "",
         name: "",
@@ -57,7 +60,12 @@ const StoryLists = ({ stories }: { stories: StoryProp[] }) => {
     }
   };
 
-  console.log(storyLists, "<----distorylist");
+  const handleViewStory = (story: StoryProp) => {
+    setSelectedStory(story);
+    setOpenView(!openView);
+  };
+
+  console.log(selectedStory, "<----distorylist");
   return (
     <>
       <CldUploadWidget
@@ -70,7 +78,7 @@ const StoryLists = ({ stories }: { stories: StoryProp[] }) => {
         {({ open }) => {
           return (
             <div className="relative flex flex-col items-center gap-2 cursor-pointer">
-              <Image src={img?.secure_url || user?.imageUrl || "/noAvatar.png"} alt={user?.username || "Story"} width={80} height={80} className="w-20 h-20 rounded-full object-cover ring-2" onClick={() => open()} />
+              <Image src={img?.secure_url || user?.imageUrl || "/noAvatar.png"} alt={user?.username || "Story"} width={80} height={80} className="w-20 h-20 rounded-full object-cover ring-2" />
 
               {img ? (
                 <form action={handleStory}>
@@ -80,17 +88,20 @@ const StoryLists = ({ stories }: { stories: StoryProp[] }) => {
                 <span>Add a Story</span>
               )}
 
-              <IoMdAdd size={40} className="absolute top-5 text-gray-200 hover:text-logo transition-all duration-300" />
+              <IoMdAdd size={40} className="absolute top-5 text-gray-200 hover:text-logo transition-all duration-300" onClick={() => open()} />
             </div>
           );
         }}
       </CldUploadWidget>
+
       {optimisticStories.map((story) => (
-        <div key={story.id} className="flex flex-col items-center gap-2 cursor-pointer">
+        <div key={story.id} className="flex flex-col items-center gap-2 cursor-pointer" onClick={() => handleViewStory(story)}>
           <Image src={story.img || "/noAvatar.png"} alt={story.user.username} width={80} height={80} className="w-20 h-20 rounded-full object-cover ring-2" />
           <span>{story.user.name || story.user.username}</span>
         </div>
       ))}
+
+      {openView && selectedStory && <ViewStory stories={selectedStory} openView={openView} setOpenView={setOpenView} />}
     </>
   );
 };
