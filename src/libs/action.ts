@@ -298,3 +298,40 @@ export const addPost = async (formData: FormData, img: string) => {
     console.log(error);
   }
 };
+
+export const addStory = async (img: string) => {
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) throw new Error("User is not Authenticated!");
+
+  try {
+    const existingStroy = await prisma.story.findFirst({
+      where: {
+        clerkId,
+      },
+    });
+
+    if (existingStroy) {
+      await prisma.story.delete({
+        where: {
+          id: existingStroy.id,
+        },
+      });
+    }
+
+    const createStroy = await prisma.story.create({
+      data: {
+        img,
+        clerkId,
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    return createStroy;
+  } catch (error) {
+    console.log(error);
+  }
+};
