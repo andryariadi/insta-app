@@ -210,7 +210,7 @@ export const updateProfile = async (prevState: { success: boolean; error: boolea
   }
 };
 
-export const switchLike = async (postId: string) => {
+export const switchLikePost = async (postId: string) => {
   const { userId: clerkId } = auth();
 
   if (!clerkId) throw new Error("User is not Authenticated!");
@@ -233,6 +233,38 @@ export const switchLike = async (postId: string) => {
       await prisma.like.create({
         data: {
           postId,
+          clerkId,
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong!");
+  }
+};
+export const switchLikeComment = async (commentId: string) => {
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) throw new Error("User is not Authenticated!");
+
+  try {
+    const existingLike = await prisma.like.findFirst({
+      where: {
+        commentId,
+        clerkId,
+      },
+    });
+
+    if (existingLike) {
+      await prisma.like.delete({
+        where: {
+          id: existingLike.id,
+        },
+      });
+    } else {
+      await prisma.like.create({
+        data: {
+          commentId,
           clerkId,
         },
       });

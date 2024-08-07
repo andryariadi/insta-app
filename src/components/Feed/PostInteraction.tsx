@@ -1,6 +1,6 @@
 "use client";
 
-import { switchLike } from "@/libs/action";
+import { switchLikePost } from "@/libs/action";
 import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import { useOptimistic, useState } from "react";
@@ -24,7 +24,7 @@ const PostInteraction = ({ postId, likes, commentNumber }: { postId: string; lik
     switchOptimisticLike("");
 
     try {
-      switchLike(postId);
+      switchLikePost(postId);
       setLikeState((state) => ({
         likeCount: state.isLiked ? state.likeCount - 1 : state.likeCount + 1,
         isLiked: !state.isLiked,
@@ -33,7 +33,7 @@ const PostInteraction = ({ postId, likes, commentNumber }: { postId: string; lik
       console.log(error);
     }
   };
-  console.log(optimisticLike, "<---dipostinteraction");
+  // console.log(optimisticLike, "<---dipostinteraction");
 
   return (
     <div className="bg-ros-500 flex items-center justify-between my-4 text-sm">

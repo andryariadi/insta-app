@@ -8,6 +8,11 @@ const Comments = async ({ postId }: { postId: string }) => {
     },
     include: {
       user: true,
+      likes: {
+        select: {
+          clerkId: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",

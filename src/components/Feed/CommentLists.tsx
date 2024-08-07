@@ -6,8 +6,9 @@ import { Comment, User } from "@prisma/client";
 import Image from "next/image";
 import { useOptimistic, useState } from "react";
 import { BsEmojiWinkFill, BsThreeDots } from "react-icons/bs";
+import CommentInteraction from "./CommentInteraction";
 
-type CommentProps = Comment & { user: User };
+type CommentProps = Comment & { user: User } & { likes: { clerkId: string }[] };
 
 const CommentLists = ({ comments, postId }: { comments: CommentProps[]; postId: string }) => {
   const { user } = useUser();
@@ -39,11 +40,16 @@ const CommentLists = ({ comments, postId }: { comments: CommentProps[]; postId: 
         website: "",
         createdAt: new Date(Date.now()),
       },
+      likes: [
+        {
+          clerkId: user.id,
+        },
+      ],
     });
 
     try {
       const createdComment = await addComment(desc, postId);
-      setCommentState((prev) => [...prev, createdComment]);
+      setCommentState((prev) => [...prev, createdComment] as CommentProps[]);
     } catch (error) {
       console.log();
     }
@@ -51,7 +57,7 @@ const CommentLists = ({ comments, postId }: { comments: CommentProps[]; postId: 
 
   const [optimisticComments, addOptimisticComment] = useOptimistic(commentState, (state, value: CommentProps) => [...state, value]);
 
-  //   console.log({ commentState, desc, optimisticComments }, "<----dicommentList");
+  // console.log(commentState, "<----dicommentList");
 
   return (
     <>
@@ -77,16 +83,7 @@ const CommentLists = ({ comments, postId }: { comments: CommentProps[]; postId: 
           <div className="bg-ambr-500 flex flex-1 flex-col gap-2">
             <span className="font-medium text-sm">{comment.user.name && comment.user.surname ? `${comment.user.name} ${comment.user.surname}` : comment.user.username}</span>
             <p className="text-base">{comment.desc}</p>
-            <div className="flex items-center gap-5 text-xs text-gray-500 mt-2">
-              <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
-                <Image src="/like.png" alt="Like" width={16} height={16} className="cursor-pointer" />
-                <span className="text-gray-300">|</span>
-                <span className="text-gray-500">
-                  0<span className="hidden md:inline ml-1">Likes</span>
-                </span>
-              </div>
-              <div>Reply</div>
-            </div>
+            <CommentInteraction commentId={comment.id} likes={comment.likes.map((like) => like.clerkId)} />
           </div>
 
           {/* Icons */}
