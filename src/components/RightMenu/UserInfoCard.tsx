@@ -50,7 +50,7 @@ const UserInfoCard = async ({ user }: { user: User }) => {
   }
 
   return (
-    <div className="bg-n-1/60 backdrop-blur sticky top-28 h-max z-10 p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
+    <div className="bg-n-1/60 dark:bg-n-7/90 border dark:border-n-1/10 backdrop-blur sticky top-28 h-max z-10 p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
       {/* Title */}
       <div className="bg-ros-500 flex items-center justify-between font-medium">
         <span className="text-gray-500">User Information</span>
@@ -66,7 +66,7 @@ const UserInfoCard = async ({ user }: { user: User }) => {
       {/* Information */}
       <div className="bg-violt-500 flex flex-col gap-4 text-gray-500">
         <div className="flex items-center justify-center flex-wrap gap-1">
-          <span className="text-base text-n-7">{user.name && user.surname ? `${user.name} ${user.surname}` : user.username}</span>
+          <span className="text-base text-n-7 dark:text-white">{user.name && user.surname ? `${user.name} ${user.surname}` : user.username}</span>
           <span className="text-xs">@{user.username}</span>
         </div>
         {user.description && <p>{user.description}</p>}

@@ -66,7 +66,7 @@ const CommentLists = ({ comments, postId }: { comments: CommentProps[]; postId: 
         <div className="bg-ros-500 flex items-center gap-4">
           <Image src={user.imageUrl || "/noAvatar.png"} alt="Comment" width={24} height={24} className="w-6 h-6 rounded-full" />
 
-          <form action={handleComment} className="flex flex-1 items-center justify-between bg-slate-100 px-6 py-2 rounded-xl">
+          <form action={handleComment} className="flex flex-1 items-center justify-between bg-slate-100 dark:bg-n-8 border dark:border-n-1/10 px-6 py-2 rounded-xl">
             <input type="text" name="desc" placeholder="Write a comment..." onChange={(e) => setDesc(e.target.value)} className="flex-1 bg-transparent rounded-sm border-none outline-none placeholder:text-sm" />
             <BsEmojiWinkFill size={16} className="text-amber-500 cursor-pointer" />
           </form>

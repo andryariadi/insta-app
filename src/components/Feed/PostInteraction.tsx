@@ -38,7 +38,7 @@ const PostInteraction = ({ postId, likes, commentNumber }: { postId: string; lik
   return (
     <div className="bg-ros-500 flex items-center justify-between my-4 text-sm">
       <div className="flex items-center gap-8">
-        <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
+        <div className="bg-slate-50 dark:bg-n-8 border dark:border-n-1/10 p-2 rounded-xl flex items-center gap-2">
           <form action={likeAction}>
             <button>
               <Image src={optimisticLike.isLiked ? "/liked.png" : "/like.png"} alt="Like" width={16} height={16} className="cursor-pointer" />
@@ -50,7 +50,7 @@ const PostInteraction = ({ postId, likes, commentNumber }: { postId: string; lik
             <span className="hidden md:inline ml-1">Likes</span>
           </span>
         </div>
-        <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
+        <div className="bg-slate-50 dark:bg-n-8 border dark:border-n-1/10 p-2 rounded-xl flex items-center gap-2">
           <Image src="/comment.png" alt="Comment" width={16} height={16} className="cursor-pointer" />
           <span className="text-gray-300">|</span>
           <span className="text-gray-500">
@@ -60,7 +60,7 @@ const PostInteraction = ({ postId, likes, commentNumber }: { postId: string; lik
         </div>
       </div>
       <div>
-        <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
+        <div className="bg-slate-50 dark:bg-n-8 border dark:border-n-1/10 p-2 rounded-xl flex items-center gap-2">
           <Image src="/share.png" alt="Share" width={16} height={16} className="cursor-pointer" />
           <span className="text-gray-300">|</span>
           <span className="text-gray-500">

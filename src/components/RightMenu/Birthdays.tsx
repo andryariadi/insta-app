@@ -4,7 +4,7 @@ import Link from "next/link";
 const Birthdays = () => {
   return (
     <>
-      <div className="bg-n-1/60 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
+      <div className="bg-n-1/60 dark:bg-n-7 border dark:border-n-1/10 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
         {/* Title */}
         <div className="bg-ros-500 flex items-center justify-between font-medium">
           <span className="text-gray-500">Birtdays</span>
@@ -22,10 +22,10 @@ const Birthdays = () => {
         </div>
 
         {/* Upcoming */}
-        <div className="bg-slate-100 p-4 rounded-lg flex items-center gap-4">
+        <div className="bg-slate-100 dark:bg-n-8 p-4 rounded-lg flex items-center gap-4">
           <Image src="/gift.png" alt="User" width={24} height={24} />
           <Link href="/" className="flex flex-col gap-1 text-xs">
-            <span className="text-gray-700 font-semibold">Upcoming Birtdays</span>
+            <span className="text-gray-700 dark:text-white font-semibold">Upcoming Birtdays</span>
             <span className="text-gray-500">See other 16 upcoming birtdays</span>
           </Link>
         </div>

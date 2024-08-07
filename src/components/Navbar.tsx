@@ -10,6 +10,7 @@ import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Search from "./Search";
 import { LoaderAuth } from "./Loading";
+import ThemeSwitch from "./ThemeSwitch";
 
 const Navbar = () => {
   return (
@@ -44,7 +45,7 @@ const Navbar = () => {
         </div>
 
         {/* Right */}
-        <div className="bg-sy-500 w-1/2 md:w-[25%] h-full flex items-center justify-end gap-3">
+        <div className="bg-tal-500 w-1/2 md:w-[25%] h-full flex items-center justify-end gap-3">
           <ClerkLoading>
             <LoaderAuth />
           </ClerkLoading>
@@ -52,7 +53,8 @@ const Navbar = () => {
           <ClerkLoaded>
             <SignedIn>
               <div className="bg-ros-500 flex items-center gap-6">
-                <div className="hidden md:flex items-center gap-6">
+                <div className="hidden md:flex items-center gap-4">
+                  <ThemeSwitch />
                   <HiOutlineUserGroup size={25} className="cursor-pointer hover:text-logo hover:scale-110 transition-all duration-300" />
                   <IoChatbubbleEllipsesOutline size={25} className="cursor-pointer hover:text-logo hover:scale-110 transition-all duration-300" />
                   <IoIosNotificationsOutline size={25} className="cursor-pointer hover:text-logo hover:scale-110 transition-all duration-300" />

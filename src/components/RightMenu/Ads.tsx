@@ -4,7 +4,7 @@ import { BsThreeDots } from "react-icons/bs";
 const Ads = ({ size }: { size: "sm" | "md" | "lg" }) => {
   return (
     <>
-      <div className="bg-n-1/60 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
+      <div className="bg-n-1/60 dark:bg-n-7 border dark:border-n-1/10 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
         {/* Top */}
         <div className="bg-sy-600 flex items-center justify-between text-gray-500">
           <span className="font-medium">Sponsored Ads</span>

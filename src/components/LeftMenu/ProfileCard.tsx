@@ -26,7 +26,7 @@ const ProfileCard = async () => {
 
   return (
     <>
-      <div className="bg-n-1/60 backdrop-blur sticky top-28 h-max z-10 p-2 rounded-lg shadow-sm text-sm flex flex-col gap-2">
+      <div className="bg-n-1/60 dark:bg-n-7/90 border dark:border-n-1/10 backdrop-blur sticky top-28 h-max z-10 p-2 rounded-lg shadow-sm text-sm flex flex-col gap-2">
         <div className="relative h-20">
           <Image src={user.cover || "/noCover.png"} alt="Profile" fill className="rounded-md object-cover" />
           <Image src={user.avatar || "/noAvatar.png"} alt="Profile" width={48} height={48} className="rounded-full object-cover w-12 h-12 absolute left-0 right-0 m-auto -bottom-6 ring-1 ring-white" />

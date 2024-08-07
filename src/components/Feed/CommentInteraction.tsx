@@ -40,7 +40,7 @@ const CommentInteraction = ({ commentId, likes }: { commentId: string; likes: st
 
   return (
     <div className="flex items-center gap-5 text-xs text-gray-500 mt-2">
-      <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2">
+      <div className="bg-slate-50 dark:bg-n-8 border dark:border-n-1/10 p-2 rounded-xl flex items-center gap-2">
         <form action={() => likeAction(commentId)}>
           <button>
             <Image src={optimisticLike.isLiked ? "/liked.png" : "/like.png"} alt="Like" width={16} height={16} className="cursor-pointer" />

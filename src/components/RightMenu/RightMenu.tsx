@@ -6,7 +6,7 @@ import UserInfoCard from "./UserInfoCard";
 import UserMediaCard from "./UserMediaCard";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import Loading from "../Loading";
+import { Loading } from "../Loading";
 
 // const Loading = dynamic(() => import("../Loading"), { ssr: false });
 

@@ -79,7 +79,7 @@ const Feed = async ({ username }: { username?: string }) => {
 
   return (
     <>
-      <div className="bg-n-1/60 backdrop-blur p-4 rounded-lg shadow-sm flex flex-col gap-12">
+      <div className="bg-n-1/60 dark:bg-n-7 border dark:border-n-1/10 backdrop-blur p-4 rounded-lg shadow-sm flex flex-col gap-12">
         <Suspense fallback={<Loading />}>{posts.length ? posts.map((post) => <Post key={post.id} post={post} />) : <div>No posts found</div>}</Suspense>
       </div>
     </>

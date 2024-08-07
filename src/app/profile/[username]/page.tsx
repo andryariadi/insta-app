@@ -56,7 +56,7 @@ const ProfilePage = async ({ params }: { params: { username: string } }) => {
         {/* Center */}
         <div className="bg-violt-500 w-full lg:w-[70%] xl:w-[50%]">
           <div className="bg-ros-500 flex flex-col gap-6">
-            <div className="bg-n-1/60 backdrop-blur rounded-md flex flex-col items-center justify-center">
+            <div className="bg-n-1/60 dark:bg-n-7 border dark:border-n-1/10 backdrop-blur rounded-md flex flex-col items-center justify-center">
               <div className="relative w-full h-64">
                 <Image src={user.cover || "/noCover.png"} alt="Profile" fill className="object-cover rounded-t-md" />
                 <Image src={user.avatar || "/noAvatar.png"} alt="Profile" width={96} height={96} className="rounded-full object-cover w-24 h-24 absolute left-0 right-0 m-auto -bottom-12 ring-2 ring-white" />

@@ -23,7 +23,7 @@ const AddPost = () => {
   console.log(isLoaded, user, "<---diaddpost");
 
   return (
-    <div className="bg-n-1/60 backdrop-blur p-4 rounded-lg shadow-sm flex justify-between gap-4 text-sm">
+    <div className="bg-n-1/60 dark:bg-n-7 border dark:border-n-1/10 backdrop-blur p-4 rounded-lg shadow-sm flex justify-between gap-4 text-sm">
       {/* Avatar */}
       <div className="bg-ambr-500">
         <Image src={user?.imageUrl || "/noAvatar.png"} alt="Avatar" width={48} height={48} className="w-12 h-12 rounded-full object-cover" />
@@ -32,7 +32,7 @@ const AddPost = () => {
       {/* Post */}
       <div className="bg-violt-500 flex-1">
         <form action={handlePost} className="bg-tal-500 flex gap-4 items-center">
-          <textarea name="desc" placeholder="What's on your mind?" onChange={(e) => setDesc(e.target.value)} className="flex-1 bg-slate-100 p-2 rounded-lg focus:outline-none"></textarea>
+          <textarea name="desc" placeholder="What's on your mind?" onChange={(e) => setDesc(e.target.value)} className="flex-1 bg-slate-100 dark:bg-n-8 border dark:border-n-1/10 p-2 rounded-lg focus:outline-none"></textarea>
           <div className="flex flex-col gap-2">
             <BsEmojiWinkFill size={18} className="text-amber-500 self-end cursor-pointer" />
             <AddPostBtn />

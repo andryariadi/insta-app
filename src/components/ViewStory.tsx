@@ -21,7 +21,6 @@ const ViewStory = ({ stories, openView, setOpenView }: { stories: StoryProp; ope
   return (
     <div className="bg-neutral-950/70 backdrop-blur-lg absolute h-[100dvh] w-[99dvw] -top-[7.5rem] -left-[29.2rem] flex items-center justify-center">
       <Image src={stories.img} alt="Story" width={384} height={384} className="w-96 h-96 object-cover" />
-      andry
     </div>
   );
 };

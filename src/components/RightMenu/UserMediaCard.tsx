@@ -18,7 +18,7 @@ const UserMediaCard = async ({ user }: { user: User }) => {
   });
 
   return (
-    <div className="bg-n-1/60 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
+    <div className="bg-n-1/60 dark:bg-n-7 border dark:border-n-1/10 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
       {/* Title */}
       <div className="bg-ros-500 flex items-center justify-between font-medium">
         <span className="text-gray-500">User Media</span>
