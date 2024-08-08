@@ -1,7 +1,48 @@
+import prisma from "@/libs/client";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
-const Birthdays = () => {
+const Birthdays = async () => {
+  const { userId: clerkId } = auth();
+
+  if (!clerkId) return;
+
+  const followers = await prisma.follower.findMany();
+
+  const selectedFollowers = followers.filter((f) => f.followerId !== clerkId);
+
+  const follower = selectedFollowers.map((f) => f.followerId);
+
+  // const ids = [clerkId, ...follower];
+
+  // console.log({ followers, selectedFollowers, follower }, "<----difeed");
+
+  const posts = await prisma.post.findMany({
+    where: {
+      clerkId: {
+        in: follower,
+      },
+    },
+    include: {
+      user: true,
+      likes: {
+        select: {
+          clerkId: true,
+        },
+      },
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  // console.log(posts, "<----dibirth");
+
   return (
     <>
       <div className="bg-n-1/60 dark:bg-n-7 border dark:border-n-1/10 backdrop-blur p-2 rounded-lg shadow-sm text-sm flex flex-col gap-4">
@@ -13,8 +54,8 @@ const Birthdays = () => {
         {/* User */}
         <div className="bg-ambr-500 flex items-center justify-between">
           <div className="bg-sk-600 flex items-center gap-4">
-            <Image src="https://images.pexels.com/photos/5473950/pexels-photo-5473950.jpeg?auto=compress&cs=tinysrgb&w=600" alt="User" width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
-            <span className="font-semibold">Tasmiah</span>
+            <Image src={posts[0].user.avatar || "/noAvatar.png"} alt="User" width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
+            <span className="font-semibold">{posts[0].user.username}</span>
           </div>
           <div className="bg-gren-600 flex items-center gap-3">
             <button className="bg-sky-500 text-white text-xs px-2 py-1 rounded-md">Celebrate</button>

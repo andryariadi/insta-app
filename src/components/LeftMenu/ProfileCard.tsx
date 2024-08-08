@@ -2,19 +2,19 @@ import prisma from "@/libs/client";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
-import { use } from "react";
 
 const ProfileCard = async () => {
-  const { userId: clerId } = auth();
+  const { userId: clerkId } = auth();
 
-  if (!clerId) return null;
+  if (!clerkId) return null;
 
   const user = await prisma.user.findFirst({
-    where: { clerkId: clerId },
+    where: { clerkId: clerkId },
     include: {
       _count: {
         select: {
           followers: true,
+          followings: true,
         },
       },
     },
